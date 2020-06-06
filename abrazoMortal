@@ -1,0 +1,63 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.Arrays;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		 int[][] num={ {1,6}, {2}, {3}, {4}, {5},{6},{1} };
+		 bloqueo bl = new bloqueo();
+		 boolean quees =bl.hasDeadLock(num);
+		 System.out.println(quees);
+		 int milen= num.length;
+		 System.out.println(milen);
+		 System.out.println( Arrays.deepToString(num));
+	}
+}
+
+class bloqueo{
+    
+    public boolean hasDeadLock(int[][] conns){
+        int n = conns.length;
+        while (n >0){
+            int i=0;
+            for(int j=0; j < conns.length; j++){
+                if (conns[i] != null && conns[i].length==0){
+                    conns[i]=null;
+                    break;
+                }
+                i++;
+            }
+            if (i== conns.length){
+                return true;
+            }
+            for(int j=0; j < conns.length; j++){
+                for (int k=0; conns[j] != null && k < conns[j].length; k++){
+                    if(conns[j][k]==i){
+                        conns[j]= copyremove(conns[j],i);
+                        break;
+                    }
+                }
+            }
+            n--;
+        }
+        return false;
+    }
+    
+    int[] copyremove(int[] arr, int e){
+        int[] res = new int [arr.length-1];
+        for(int i =0, j=0; i < arr.length; i++){
+            if(arr[j] != e){
+                res[j++]=arr[i];
+            }
+        }
+        return res;
+        
+        
+    }
+}
